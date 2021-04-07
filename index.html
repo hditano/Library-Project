@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Library Project</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Library Project</title>
+  </head>
+  <body>
+    <section class="main-header">
+      <div class="main-title">
+        <p class="title">Library Project</p>
+      </div>
+    </section>
+    <section class="main-container">
+      <div class="left-menu">
+        <label for="text-name">Name</label>
+          <input type="text" class="books-input" name="text-name" id="name" />
+          <label for="text-author">Author</label>
+          <input type="text" class="books-input" name="text-author" id="author" />
+          <label for="text-pages">Pages</label>
+          <input type="text" class="books-input" name="text-pages" id="pages" />
+          <label for="text-read">Read?</label>
+          <input type="text" class="books-input" name="text-read" id="read" />
 
-  <script src="script.js"></script>
-</body>
+          <input type="button" class="books-input" value="Submit">
+      </div>
+      <div class="main-menu">
+          <div class="name-title">Titulo del libro</div>
+          <div class="name-title">Autor</div>
+          <div class="name-title">Paginas</div>
+          <div class="name-title">Leido?</div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
 </html>

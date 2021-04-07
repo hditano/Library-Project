@@ -32,5 +32,5 @@ function loopBooks() {
   myLibrary.forEach((books) => console.log(books));
 }
 
-addBookToLibrary();
-loopBooks();
+// addBookToLibrary();
+// loopBooks();
