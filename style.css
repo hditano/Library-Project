@@ -60,5 +60,6 @@ body {
 }
 
 .name-title {
-  width: 200px;
+  width: 250px;
+  text-align: center;
 }

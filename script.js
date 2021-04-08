@@ -1,3 +1,16 @@
+const submitButton = document.querySelector(".submitBTN");
+const mainMenu = document.querySelector(".main-menu");
+
+const nameTitle = document.querySelector(".name-title");
+const nameAuthor = document.querySelector(".name-author");
+
+const bookInput = document.querySelector(".books-input");
+
+const textName = document.querySelector("#name");
+const textAuthor = document.querySelector("#author");
+const textPages = document.querySelector("#pages");
+const textRead = document.querySelector("#read");
+
 let myLibrary = [
   {
     title: "Quinto Elemento",
@@ -13,23 +26,31 @@ let myLibrary = [
   },
 ];
 
-
-function addBookToLibrary() {
-  const title = prompt("What's the title of the book?");
-  const author = prompt("What's the author?");
-  const pages = prompt("How many pages?");
-  const read = prompt("Did you read it?");
-
+submitButton.addEventListener("click", function (e) {
   myLibrary.push({
-    title: title,
-    author: author,
-    pages: pages,
-    read: read,
+    title: textName.value,
+    author: textAuthor.value,
+    pages: textPages.value,
+    read: textRead.value,
   });
-}
+});
 
 function loopBooks() {
-  myLibrary.forEach((books) => console.log(books));
+  for(const value of myLibrary) {
+    const newDiv = document.createElement("div");
+    const newP = document.createElement("p");
+    const createTitle = document.createTextNode(value['title']);
+    const createAuthor = document.createTextNode(value['author']);
+    const createPages = document.createTextNode(value['pages']);
+    const createRead = document.createTextNode(value['read']);
+    newP.appendChild(createTitle);
+    newP.appendChild(createAuthor);
+    newP.appendChild(createPages);
+    newP.appendChild(createRead);
+
+    newDiv.appendChild(newP);
+    mainMenu.appendChild(newDiv);
+    }
 }
 
 // addBookToLibrary();
