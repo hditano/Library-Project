@@ -37,11 +37,10 @@ submitButton.addEventListener("click", function (e) {
 
 function loopBooks() {
   for (const value of myLibrary) {
-
     let elems = [
-      value["title"],
-      value["author"],
-      value["pages"],
+      `Title: ${value["title"]}`,
+      `Author: ${value["author"]}`,
+      `Pages: ${value["pages"]}`,
       value["read"],
     ];
 
