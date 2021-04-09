@@ -26,15 +26,6 @@ let myLibrary = [
   },
 ];
 
-submitButton.addEventListener("click", function (e) {
-  myLibrary.push({
-    title: textName.value,
-    author: textAuthor.value,
-    pages: textPages.value,
-    read: textRead.value,
-  });
-});
-
 function loopBooks() {
   for (const value of myLibrary) {
     let elems = [
@@ -45,6 +36,7 @@ function loopBooks() {
     ];
 
     let tempDiv = document.createElement("div");
+    let removeBtn = document.createElement('button');
     for (let i = 0; i < elems.length; i++) {
       let tempNode = document.createTextNode(elems[i]);
       let tempP = document.createElement("p");
@@ -53,9 +45,23 @@ function loopBooks() {
       tempP.classList.add("card-items");
     }
     tempDiv.classList.add("card");
+    removeBtn.setAttribute('type','button');
+    removeBtn.setAttribute('class', 'remove-button')
+    removeBtn.textContent = 'Remove';
+    tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
   }
 }
 
+submitButton.addEventListener("click", function (e) {
+  myLibrary.push({
+    title: textName.value,
+    author: textAuthor.value,
+    pages: textPages.value,
+    read: textRead.value,
+  });
+});
+
 // addBookToLibrary();
 loopBooks();
+
