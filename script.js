@@ -36,22 +36,27 @@ submitButton.addEventListener("click", function (e) {
 });
 
 function loopBooks() {
-  for(const value of myLibrary) {
-    const newDiv = document.createElement("div");
-    const newP = document.createElement("p");
-    const createTitle = document.createTextNode(value['title']);
-    const createAuthor = document.createTextNode(value['author']);
-    const createPages = document.createTextNode(value['pages']);
-    const createRead = document.createTextNode(value['read']);
-    newP.appendChild(createTitle);
-    newP.appendChild(createAuthor);
-    newP.appendChild(createPages);
-    newP.appendChild(createRead);
+  for (const value of myLibrary) {
 
-    newDiv.appendChild(newP);
-    mainMenu.appendChild(newDiv);
+    let elems = [
+      value["title"],
+      value["author"],
+      value["pages"],
+      value["read"],
+    ];
+
+    let tempDiv = document.createElement("div");
+    for (let i = 0; i < elems.length; i++) {
+      let tempNode = document.createTextNode(elems[i]);
+      let tempP = document.createElement("p");
+      tempP.appendChild(tempNode);
+      tempDiv.appendChild(tempP);
+      tempP.classList.add("card-items");
     }
+    tempDiv.classList.add("card");
+    mainMenu.appendChild(tempDiv);
+  }
 }
 
 // addBookToLibrary();
-// loopBooks();
+loopBooks();
