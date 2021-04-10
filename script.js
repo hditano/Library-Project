@@ -11,18 +11,22 @@ const textAuthor = document.querySelector("#author");
 const textPages = document.querySelector("#pages");
 const textRead = document.querySelector("#read");
 
+const lastChild = document.querySelector('.card');
+
 let myLibrary = [
   {
     title: "Quinto Elemento",
     author: "Wilbur Smith",
     pages: 230,
     read: true,
+    dataID: 0,
   },
   {
     title: "El Señor de los Anillos",
     author: "J.Tolkien",
     pages: 430,
     read: false,
+    dataID: 1,
   },
 ];
 
@@ -33,10 +37,11 @@ function loopBooks() {
       `Author: ${value["author"]}`,
       `Pages: ${value["pages"]}`,
       value["read"],
+      `Data-ID: ${value["dataID"]}`,
     ];
 
     let tempDiv = document.createElement("div");
-    let removeBtn = document.createElement('button');
+    let removeBtn = document.createElement("button");
     for (let i = 0; i < elems.length; i++) {
       let tempNode = document.createTextNode(elems[i]);
       let tempP = document.createElement("p");
@@ -45,23 +50,57 @@ function loopBooks() {
       tempP.classList.add("card-items");
     }
     tempDiv.classList.add("card");
-    removeBtn.setAttribute('type','button');
-    removeBtn.setAttribute('class', 'remove-button')
-    removeBtn.textContent = 'Remove';
+    removeBtn.setAttribute("type", "button");
+    removeBtn.setAttribute("class", "remove-button");
+    removeBtn.textContent = "Remove";
     tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
   }
+  lastLength = myLibrary.length;
 }
 
-submitButton.addEventListener("click", function (e) {
-  myLibrary.push({
-    title: textName.value,
-    author: textAuthor.value,
-    pages: textPages.value,
-    read: textRead.value,
-  });
+submitButton.addEventListener("click", (e) => {
+  return addBook(
+    textAuthor.value,
+    textName.value,
+    textPages.value,
+    textRead.value
+  );
 });
+
+function addBook(title, author, pages, read) {
+  myLibrary.push({
+    title: title,
+    author: author,
+    pages: pages,
+    read: read,
+    dataID: myLibrary.length,
+  });
+  displayLastElement();
+}
+
+
+function displayLastElement() {
+  for (const value of myLibrary) {
+    let elems = [
+      `Title: ${value["title"]}`,
+      `Author: ${value["author"]}`,
+      `Pages: ${value["pages"]}`,
+      value["read"],
+      `Data-ID: ${value["dataID"]}`,
+    ];
+    let tempDiv = document.createElement("div");
+    for (let i = 0; i < elems.length; i++) {
+      let tempNode = document.createTextNode(elems[i]);
+      let tempP = document.createElement("p");
+      tempP.appendChild(tempNode);
+      tempDiv.appendChild(tempP);
+    }
+    let removeBtn = document.createElement('button');
+    tempDiv.appendChild(removeBtn);
+    mainMenu.insertBefore(tempDiv, lastChild);
+  }
+}
 
 // addBookToLibrary();
 loopBooks();
-
