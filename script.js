@@ -85,16 +85,20 @@ function displayLastElement() {
       value["read"],
       `Data-ID: ${value["dataID"]}`,
     ];
-    console.log(myLibrary.slice(-1))
     let tempDiv = document.createElement("div");
     for (let i = 0; i < elems.length; i++) {
       let tempNode = document.createTextNode(elems[i]);
       let tempP = document.createElement("p");
       tempP.appendChild(tempNode);
+      tempP.classList.add("card-items");
       tempDiv.appendChild(tempP);
     }
     let removeBtn = document.createElement('button');
     tempDiv.appendChild(removeBtn);
+    tempDiv.classList.add("card");
+    removeBtn.setAttribute("type", "button");
+    removeBtn.setAttribute("class", "remove-button");
+    removeBtn.textContent = "Remove";
     mainMenu.insertBefore(tempDiv, lastChild);
   }
 }
