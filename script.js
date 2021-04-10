@@ -81,7 +81,7 @@ function addBook(title, author, pages, read) {
 
 
 function displayLastElement() {
-  for (const value of myLibrary) {
+  for (const value of myLibrary.slice(-1)) {
     let elems = [
       `Title: ${value["title"]}`,
       `Author: ${value["author"]}`,
@@ -89,6 +89,7 @@ function displayLastElement() {
       value["read"],
       `Data-ID: ${value["dataID"]}`,
     ];
+    console.log(myLibrary.slice(-1))
     let tempDiv = document.createElement("div");
     for (let i = 0; i < elems.length; i++) {
       let tempNode = document.createTextNode(elems[i]);
