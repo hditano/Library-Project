@@ -30,6 +30,9 @@ let myLibrary = [
   },
 ];
 
+// Functions
+
+//Render Books
 function loopBooks() {
   for (const value of myLibrary) {
     let elems = [
@@ -59,15 +62,8 @@ function loopBooks() {
   lastLength = myLibrary.length;
 }
 
-submitButton.addEventListener("click", (e) => {
-  return addBook(
-    textAuthor.value,
-    textName.value,
-    textPages.value,
-    textRead.value
-  );
-});
 
+// Add Books
 function addBook(title, author, pages, read) {
   myLibrary.push({
     title: title,
@@ -79,7 +75,7 @@ function addBook(title, author, pages, read) {
   displayLastElement();
 }
 
-
+// Display Last Element to the Array and Renders it
 function displayLastElement() {
   for (const value of myLibrary.slice(-1)) {
     let elems = [
@@ -102,6 +98,19 @@ function displayLastElement() {
     mainMenu.insertBefore(tempDiv, lastChild);
   }
 }
+
+// Event-Listeners
+
+submitButton.addEventListener("click", (e) => {
+  return addBook(
+    textAuthor.value,
+    textName.value,
+    textPages.value,
+    textRead.value
+  );
+});
+
+
 
 // addBookToLibrary();
 loopBooks();
