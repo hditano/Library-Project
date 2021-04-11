@@ -56,11 +56,22 @@ function loopBooks() {
     removeBtn.setAttribute("type", "button");
     removeBtn.setAttribute("class", "remove-button");
     removeBtn.textContent = "Remove";
+    tempDiv.setAttribute('data-id', myLibrary.indexOf(value));
     tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
   }
   lastLength = myLibrary.length;
 }
+
+submitButton.addEventListener("click", (e) => {
+  return addBook(
+    textAuthor.value,
+    textName.value,
+    textPages.value,
+    textRead.value
+  );
+});
+
 
 
 // Add Books
@@ -96,6 +107,7 @@ function displayLastElement() {
     let removeBtn = document.createElement('button');
     tempDiv.appendChild(removeBtn);
     tempDiv.classList.add("card");
+    tempDiv.setAttribute('data-id', myLibrary.indexOf(value));
     removeBtn.setAttribute("type", "button");
     removeBtn.setAttribute("class", "remove-button");
     removeBtn.textContent = "Remove";
@@ -103,18 +115,15 @@ function displayLastElement() {
   }
 }
 
+function removeBook() {
+  for(let i = 0; i < myLibrary.length; i++) {
+    if(dataID == myLibrary[i].dataID) {
+      console.log(dataID, myLibrary[i].dataID);
+    }
+  }
+}
+
 // Event-Listeners
-
-submitButton.addEventListener("click", (e) => {
-  return addBook(
-    textAuthor.value,
-    textName.value,
-    textPages.value,
-    textRead.value
-  );
-});
-
-
 
 // addBookToLibrary();
 loopBooks();
