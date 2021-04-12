@@ -13,7 +13,7 @@ const textAuthor = document.querySelector("#author");
 const textPages = document.querySelector("#pages");
 const textRead = document.querySelector("#read");
 
-const lastChild = document.querySelector('.card');
+const lastChild = document.querySelector(".card");
 
 /* Array */
 
@@ -44,7 +44,6 @@ function loopBooks() {
       `Author: ${value["author"]}`,
       `Pages: ${value["pages"]}`,
       value["read"],
-      `Data-ID: ${value["dataID"]}`,
     ];
 
     let tempDiv = document.createElement("div");
@@ -56,22 +55,23 @@ function loopBooks() {
       tempDiv.appendChild(tempP);
       tempP.classList.add("card-items");
     }
+    removeBtn.addEventListener("click", function () {
+      if(tempDiv.getAttribute('data-id') == myLibrary.indexOf(value)) {
+      console.log(`IndexOf: ${myLibrary.indexOf(value)}`);
+      console.log(`data-id: ${tempDiv.getAttribute('data-id')}`);
+      myLibrary.splice(myLibrary.indexOf(value),1);
+      removeBooks();
+      }
+    });
     tempDiv.classList.add("card");
     removeBtn.setAttribute("type", "button");
     removeBtn.setAttribute("class", "remove-button");
-    removeBtn.addEventListener('click',(e) => {
-      console.log(myLibrary.indexOf(value))
-    });
     removeBtn.textContent = "Remove";
-    tempDiv.setAttribute('data-id', myLibrary.indexOf(value));
+    tempDiv.setAttribute("data-id", myLibrary.indexOf(value));
     tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
   }
-  lastLength = myLibrary.length;
 }
-
-
-
 
 // Add Books
 
@@ -94,7 +94,6 @@ function displayLastElement() {
       `Author: ${value["author"]}`,
       `Pages: ${value["pages"]}`,
       value["read"],
-      `Data-ID: ${value["dataID"]}`,
     ];
     let tempDiv = document.createElement("div");
     for (let i = 0; i < elems.length; i++) {
@@ -104,10 +103,10 @@ function displayLastElement() {
       tempP.classList.add("card-items");
       tempDiv.appendChild(tempP);
     }
-    let removeBtn = document.createElement('button');
+    let removeBtn = document.createElement("button");
     tempDiv.appendChild(removeBtn);
     tempDiv.classList.add("card");
-    tempDiv.setAttribute('data-id', myLibrary.indexOf(value));
+    tempDiv.setAttribute("data-id", myLibrary.indexOf(value));
     removeBtn.setAttribute("type", "button");
     removeBtn.setAttribute("class", "remove-button");
     removeBtn.textContent = "Remove";
@@ -115,7 +114,11 @@ function displayLastElement() {
   }
 }
 
-// Event-Listeners
+
+function removeBooks() {
+  document.querySelectorAll('.card').forEach((e) => e.remove());
+  loopBooks();
+}
 
 
 submitButton.addEventListener("click", (e) => {
