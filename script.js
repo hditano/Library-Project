@@ -1,3 +1,5 @@
+/* Variables */
+
 const submitButton = document.querySelector(".submitBTN");
 const mainMenu = document.querySelector(".main-menu");
 
@@ -12,6 +14,8 @@ const textPages = document.querySelector("#pages");
 const textRead = document.querySelector("#read");
 
 const lastChild = document.querySelector('.card');
+
+/* Array */
 
 let myLibrary = [
   {
@@ -30,7 +34,7 @@ let myLibrary = [
   },
 ];
 
-// Functions
+/* Functions */
 
 //Render Books
 function loopBooks() {
@@ -55,6 +59,9 @@ function loopBooks() {
     tempDiv.classList.add("card");
     removeBtn.setAttribute("type", "button");
     removeBtn.setAttribute("class", "remove-button");
+    removeBtn.addEventListener('click',(e) => {
+      console.log(myLibrary.indexOf(value))
+    });
     removeBtn.textContent = "Remove";
     tempDiv.setAttribute('data-id', myLibrary.indexOf(value));
     tempDiv.appendChild(removeBtn);
@@ -63,18 +70,11 @@ function loopBooks() {
   lastLength = myLibrary.length;
 }
 
-submitButton.addEventListener("click", (e) => {
-  return addBook(
-    textAuthor.value,
-    textName.value,
-    textPages.value,
-    textRead.value
-  );
-});
 
 
 
 // Add Books
+
 function addBook(title, author, pages, read) {
   myLibrary.push({
     title: title,
@@ -115,15 +115,17 @@ function displayLastElement() {
   }
 }
 
-function removeBook() {
-  for(let i = 0; i < myLibrary.length; i++) {
-    if(dataID == myLibrary[i].dataID) {
-      console.log(dataID, myLibrary[i].dataID);
-    }
-  }
-}
-
 // Event-Listeners
+
+
+submitButton.addEventListener("click", (e) => {
+  return addBook(
+    textAuthor.value,
+    textName.value,
+    textPages.value,
+    textRead.value
+  );
+});
 
 // addBookToLibrary();
 loopBooks();
