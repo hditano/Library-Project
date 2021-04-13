@@ -5,6 +5,7 @@ const mainMenu = document.querySelector(".main-menu");
 
 const nameTitle = document.querySelector(".name-title");
 const nameAuthor = document.querySelector(".name-author");
+const removeBtn = document.querySelector('.remove-button');
 
 const bookInput = document.querySelector(".books-input");
 
@@ -36,6 +37,23 @@ let myLibrary = [
 
 /* Functions */
 
+/* Constructor */
+function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.addBook = function () {
+    myLibrary.push({
+      title: this.title,
+      author: this.author,
+      pages: this.pages,
+      read: this.read,
+    });
+  }
+}
+
+
 //Render Books
 function loopBooks() {
   for (const value of myLibrary) {
@@ -55,12 +73,17 @@ function loopBooks() {
       tempDiv.appendChild(tempP);
       tempP.classList.add("card-items");
     }
-    removeBtn.addEventListener("click", function () {
-      if(tempDiv.getAttribute('data-id') == myLibrary.indexOf(value)) {
-      console.log(`IndexOf: ${myLibrary.indexOf(value)}`);
-      console.log(`data-id: ${tempDiv.getAttribute('data-id')}`);
-      myLibrary.splice(myLibrary.indexOf(value),1);
-      removeBooks();
+
+    // Event Delegation
+    document.querySelector('.main-menu').addEventListener('click', event => {
+      if(event.target.className === 'remove-button') {
+        if(tempDiv.getAttribute('data-id') == myLibrary.indexOf(value)) {
+          console.log(`IndexOf: ${myLibrary.indexOf(value)}`);
+          console.log(`data-id: ${tempDiv.getAttribute('data-id')}`);
+          myLibrary.splice(myLibrary.indexOf(value),1);
+          document.querySelectorAll('.card').forEach((e) => e.remove());
+          loopBooks();
+        }   
       }
     });
     tempDiv.classList.add("card");
@@ -73,18 +96,15 @@ function loopBooks() {
   }
 }
 
-// Add Books
+
+// Add Books Function
 
 function addBook(title, author, pages, read) {
-  myLibrary.push({
-    title: title,
-    author: author,
-    pages: pages,
-    read: read,
-    dataID: myLibrary.length,
-  });
+  const newBook = new Book(title, author, pages, read);
+  newBook.addBook();
   displayLastElement();
 }
+
 
 // Display Last Element to the Array and Renders it
 function displayLastElement() {
@@ -115,14 +135,14 @@ function displayLastElement() {
 }
 
 
-function removeBooks() {
-  document.querySelectorAll('.card').forEach((e) => e.remove());
-  loopBooks();
-}
+// function removeBooks() {
+//   document.querySelectorAll('.card').forEach((e) => e.remove());
+//   loopBooks();
+// }
 
 
 submitButton.addEventListener("click", (e) => {
-  return addBook(
+  addBook(
     textAuthor.value,
     textName.value,
     textPages.value,
