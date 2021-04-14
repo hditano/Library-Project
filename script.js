@@ -63,6 +63,8 @@ Book.prototype.readStatus = function () {
 };
 
 
+
+
 //Render Books
 function loopBooks() {
   for (const value of myLibrary) {
@@ -94,13 +96,15 @@ function loopBooks() {
         }
       }
     });
+
+
     tempDiv.appendChild(tempCheckbox);
     tempDiv.classList.add("card");
     removeBtn.setAttribute("type", "button");
     removeBtn.setAttribute("class", "remove-button");
     removeBtn.textContent = "Remove";
     tempCheckbox.setAttribute('type', 'checkbox');
-    tempCheckbox.setAttribute('id', 'read');
+    tempCheckbox.setAttribute('class', 'text-read');
     tempDiv.setAttribute("data-id", myLibrary.indexOf(value));
     tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
@@ -108,6 +112,20 @@ function loopBooks() {
 }
 
 // Add Books Function
+
+
+document.querySelector('.main-menu').addEventListener('click', (e) => {
+  if (e.target.className === "text-read") {
+    let datasetID = e.target.closest('div').dataset.id;
+      if(e.target.checked === true) {
+        myLibrary[datasetID].read = true;
+      } else {
+        myLibrary[datasetID].read = false;
+      }
+  }
+});
+
+
 
 function addBook(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
@@ -150,16 +168,12 @@ function displayLastElement() {
     tempDiv.setAttribute("data-id", myLibrary.indexOf(value));
     tempCheckbox.setAttribute('type', 'checkbox');
     removeBtn.setAttribute("type", "button");
-    tempCheckbox.setAttribute('id', 'read');
+    tempCheckbox.setAttribute('class', 'text-read');
     removeBtn.setAttribute("class", "remove-button");
     removeBtn.textContent = "Remove";
     mainMenu.insertBefore(tempDiv, lastChild);
   }
 }
-
-textRead.addEventListener('click', (e) => {
-  console.log(e.target);
-})
 
 submitButton.addEventListener("click", (e) => {
   addBook(textAuthor.value, textName.value, textPages.value, textRead.value);
