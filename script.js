@@ -5,7 +5,7 @@ const mainMenu = document.querySelector(".main-menu");
 
 const nameTitle = document.querySelector(".name-title");
 const nameAuthor = document.querySelector(".name-author");
-const removeBtn = document.querySelector('.remove-button');
+const removeBtn = document.querySelector(".remove-button");
 
 const bookInput = document.querySelector(".books-input");
 
@@ -43,15 +43,24 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.addBook = function () {
-    myLibrary.push({
-      title: this.title,
-      author: this.author,
-      pages: this.pages,
-      read: this.read,
-    });
-  }
 }
+
+// Prototype(s)
+
+Book.prototype.addBook = function () {
+  myLibrary.push({
+    title: this.title,
+    author: this.author,
+    pages: this.pages,
+    read: this.read,
+  });
+};
+
+Book.prototype.readStatus = function () {
+  if(this.read === null || this.read === undefined) {
+    this.read = false;
+  }
+};
 
 
 //Render Books
@@ -61,11 +70,12 @@ function loopBooks() {
       `Title: ${value["title"]}`,
       `Author: ${value["author"]}`,
       `Pages: ${value["pages"]}`,
-      value["read"],
+      `Read? ${value["read"]}`,
     ];
 
     let tempDiv = document.createElement("div");
     let removeBtn = document.createElement("button");
+    let tempCheckbox = document.createElement('input');
     for (let i = 0; i < elems.length; i++) {
       let tempNode = document.createTextNode(elems[i]);
       let tempP = document.createElement("p");
@@ -75,27 +85,27 @@ function loopBooks() {
     }
 
     // Event Delegation
-    document.querySelector('.main-menu').addEventListener('click', event => {
-      if(event.target.className === 'remove-button') {
-        if(tempDiv.getAttribute('data-id') == myLibrary.indexOf(value)) {
-          console.log(`IndexOf: ${myLibrary.indexOf(value)}`);
-          console.log(`data-id: ${tempDiv.getAttribute('data-id')}`);
-          myLibrary.splice(myLibrary.indexOf(value),1);
-          document.querySelectorAll('.card').forEach((e) => e.remove());
+    document.querySelector(".main-menu").addEventListener("click", (event) => {
+      if (event.target.className === "remove-button") {
+        if (tempDiv.getAttribute("data-id") == myLibrary.indexOf(value)) {
+          myLibrary.splice(myLibrary.indexOf(value), 1);
+          document.querySelectorAll(".card").forEach((e) => e.remove());
           loopBooks();
-        }   
+        }
       }
     });
+    tempDiv.appendChild(tempCheckbox);
     tempDiv.classList.add("card");
     removeBtn.setAttribute("type", "button");
     removeBtn.setAttribute("class", "remove-button");
     removeBtn.textContent = "Remove";
+    tempCheckbox.setAttribute('type', 'checkbox');
+    tempCheckbox.setAttribute('id', 'read');
     tempDiv.setAttribute("data-id", myLibrary.indexOf(value));
     tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
   }
 }
-
 
 // Add Books Function
 
@@ -105,7 +115,6 @@ function addBook(title, author, pages, read) {
   displayLastElement();
 }
 
-
 // Display Last Element to the Array and Renders it
 function displayLastElement() {
   for (const value of myLibrary.slice(-1)) {
@@ -113,9 +122,10 @@ function displayLastElement() {
       `Title: ${value["title"]}`,
       `Author: ${value["author"]}`,
       `Pages: ${value["pages"]}`,
-      value["read"],
+      `Read? ${value["read"]}`,
     ];
     let tempDiv = document.createElement("div");
+    let tempCheckbox = document.createElement('input');
     for (let i = 0; i < elems.length; i++) {
       let tempNode = document.createTextNode(elems[i]);
       let tempP = document.createElement("p");
@@ -123,32 +133,36 @@ function displayLastElement() {
       tempP.classList.add("card-items");
       tempDiv.appendChild(tempP);
     }
+
+    document.querySelector(".main-menu").addEventListener("click", (event) => {
+      if (event.target.className === "remove-button") {
+        if (tempDiv.getAttribute("data-id") == myLibrary.indexOf(value)) {
+          myLibrary.splice(myLibrary.indexOf(value), 1);
+          document.querySelectorAll(".card").forEach((e) => e.remove());
+          loopBooks();
+        }
+      }
+    });
     let removeBtn = document.createElement("button");
+    tempDiv.appendChild(tempCheckbox);
     tempDiv.appendChild(removeBtn);
     tempDiv.classList.add("card");
     tempDiv.setAttribute("data-id", myLibrary.indexOf(value));
+    tempCheckbox.setAttribute('type', 'checkbox');
     removeBtn.setAttribute("type", "button");
+    tempCheckbox.setAttribute('id', 'read');
     removeBtn.setAttribute("class", "remove-button");
     removeBtn.textContent = "Remove";
     mainMenu.insertBefore(tempDiv, lastChild);
   }
 }
 
-
-// function removeBooks() {
-//   document.querySelectorAll('.card').forEach((e) => e.remove());
-//   loopBooks();
-// }
-
+textRead.addEventListener('click', (e) => {
+  console.log(e.target);
+})
 
 submitButton.addEventListener("click", (e) => {
-  addBook(
-    textAuthor.value,
-    textName.value,
-    textPages.value,
-    textRead.value
-  );
+  addBook(textAuthor.value, textName.value, textPages.value, textRead.value);
 });
 
-// addBookToLibrary();
 loopBooks();
