@@ -23,7 +23,7 @@ let myLibrary = [
     title: "Quinto Elemento",
     author: "Wilbur Smith",
     pages: 230,
-    read: true,
+    read: false,
     dataID: 0,
   },
   {
@@ -38,11 +38,11 @@ let myLibrary = [
 /* Functions */
 
 /* Constructor */
-function Book(title, author, pages, read) {
+function Book(title, author, pages) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.read = read;
+  this.read = false;
 }
 
 // Prototype(s)
@@ -56,10 +56,8 @@ Book.prototype.addBook = function () {
   });
 };
 
-Book.prototype.readStatus = function () {
-  if(this.read === null || this.read === undefined) {
-    this.read = false;
-  }
+Book.prototype.readStatus = function (datasetID) {
+  e.target.checked === true ? this.myLibrary[datasetID].read = true : this.myLibrary[datasetID].read = false;
 };
 
 
@@ -111,21 +109,7 @@ function loopBooks() {
   }
 }
 
-// Add Books Function
-
-
-document.querySelector('.main-menu').addEventListener('click', (e) => {
-  if (e.target.className === "text-read") {
-    let datasetID = e.target.closest('div').dataset.id;
-      if(e.target.checked === true) {
-        myLibrary[datasetID].read = true;
-      } else {
-        myLibrary[datasetID].read = false;
-      }
-  }
-});
-
-
+// Add Book Function
 
 function addBook(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
@@ -175,8 +159,17 @@ function displayLastElement() {
   }
 }
 
+// Event Listeners
+
 submitButton.addEventListener("click", (e) => {
   addBook(textAuthor.value, textName.value, textPages.value, textRead.value);
+});
+
+document.querySelector('.main-menu').addEventListener('click', (e) => {
+  if (e.target.className === "text-read") {
+    let datasetID = e.target.closest('div').dataset.id;
+    e.target.checked === true ? myLibrary[datasetID].read = true : myLibrary[datasetID].read = false;
+  }
 });
 
 loopBooks();
