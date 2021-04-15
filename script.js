@@ -17,7 +17,7 @@ const textRead = document.querySelector("#read");
 const lastChild = document.querySelector(".card");
 
 /* localStorage load call out */
-let mySavedArray = JSON.parse(localStorage.getItem('mySavedArray'));
+// let mySavedArray = JSON.parse(localStorage.getItem('mySavedArray'));
 
 /* Array */
 let myLibrary = [{
@@ -28,7 +28,7 @@ let myLibrary = [{
 }];
 
 /* Passing saving data to myLibrary array */
-myLibrary = mySavedArray;
+// mySavedArray = myLibrary;
 
 
 /* Functions */
@@ -102,7 +102,7 @@ function loopBooks() {
     tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
   }
-  localStorage.setItem('mySavedArray', JSON.stringify(myLibrary));
+  // localStorage.setItem('mySavedArray', JSON.stringify(myLibrary));
 }
 
 // Add Book Function
@@ -153,7 +153,7 @@ function displayLastElement() {
     removeBtn.textContent = "Remove";
     mainMenu.insertBefore(tempDiv, lastChild);
   }
-  localStorage.setItem('mySavedArray', JSON.stringify(myLibrary));
+  // localStorage.setItem('mySavedArray', JSON.stringify(myLibrary));
 }
 
 // Event Listeners
