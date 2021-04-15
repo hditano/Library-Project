@@ -8,7 +8,8 @@
 * AddEventListener manipulations
 * Working dynamically with Array of Objects
 * Event Delegation and how to handle EventListeners created by JavaScript after Loading Page.
-* more common usage of Event Listeners
+* Implementing Basic Constructors for the first time
+* localStorage (Work in Progress)
 
 
 ![image](https://user-images.githubusercontent.com/6069906/114845188-f2033200-9db1-11eb-9b28-e07d58124663.png)
