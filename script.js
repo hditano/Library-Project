@@ -20,7 +20,12 @@ const lastChild = document.querySelector(".card");
 let mySavedArray = JSON.parse(localStorage.getItem('mySavedArray'));
 
 /* Array */
-let myLibrary = [];
+let myLibrary = [{
+  title : 'El Señor de los Anillos',
+  author : 'J.Tolkien',
+  pages : 550,
+  read : false,
+}];
 
 /* Passing saving data to myLibrary array */
 myLibrary = mySavedArray;
