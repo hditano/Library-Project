@@ -16,24 +16,15 @@ const textRead = document.querySelector("#read");
 
 const lastChild = document.querySelector(".card");
 
-/* Array */
+/* localStorage load call out */
+let mySavedArray = JSON.parse(localStorage.getItem('mySavedArray'));
 
-let myLibrary = [
-  {
-    title: "Quinto Elemento",
-    author: "Wilbur Smith",
-    pages: 230,
-    read: false,
-    dataID: 0,
-  },
-  {
-    title: "El Señor de los Anillos",
-    author: "J.Tolkien",
-    pages: 430,
-    read: false,
-    dataID: 1,
-  },
-];
+/* Array */
+let myLibrary = [];
+
+/* Passing saving data to myLibrary array */
+myLibrary = mySavedArray;
+
 
 /* Functions */
 
@@ -59,7 +50,6 @@ Book.prototype.addBook = function () {
 Book.prototype.readStatus = function (datasetID) {
   e.target.checked === true ? this.myLibrary[datasetID].read = true : this.myLibrary[datasetID].read = false;
 };
-
 
 
 
@@ -107,6 +97,7 @@ function loopBooks() {
     tempDiv.appendChild(removeBtn);
     mainMenu.appendChild(tempDiv);
   }
+  localStorage.setItem('mySavedArray', JSON.stringify(myLibrary));
 }
 
 // Add Book Function
@@ -157,6 +148,7 @@ function displayLastElement() {
     removeBtn.textContent = "Remove";
     mainMenu.insertBefore(tempDiv, lastChild);
   }
+  localStorage.setItem('mySavedArray', JSON.stringify(myLibrary));
 }
 
 // Event Listeners
@@ -171,5 +163,11 @@ document.querySelector('.main-menu').addEventListener('click', (e) => {
     e.target.checked === true ? myLibrary[datasetID].read = true : myLibrary[datasetID].read = false;
   }
 });
+
+// localStorage
+
+
+console.log('localStorage: ', JSON.parse(localStorage.getItem('mySavedArray')));
+
 
 loopBooks();
